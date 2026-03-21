@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Itachi | Visionary Web Design</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@700;800;900&family=Manrope:wght@400;500;600&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "tertiary": "#ffb4a8",
+          "error": "#ffb4ab",
+          "surface-container-lowest": "#0e0e0e",
+          "on-primary-container": "#ff907f",
+          "secondary-fixed": "#e4e2e1",
+          "surface-tint": "#ffb4a8",
+          "inverse-surface": "#e5e2e1",
+          "background": "#131313",
+          "secondary-container": "#474747",
+          "surface-container-low": "#1c1b1b",
+          "primary-fixed": "#ffdad4",
+          "surface-bright": "#3a3939",
+          "on-tertiary": "#670402",
+          "on-surface": "#e5e2e1",
+          "surface-container": "#201f1f",
+          "on-secondary-container": "#b6b5b4",
+          "surface-dim": "#131313",
+          "error-container": "#93000a",
+          "on-error": "#690005",
+          "surface-container-high": "#2a2a2a",
+          "surface": "#131313",
+          "inverse-on-surface": "#313030",
+          "on-background": "#e5e2e1",
+          "on-tertiary-container": "#ff907f",
+          "on-primary-fixed": "#410000",
+          "tertiary-fixed": "#ffdad4",
+          "surface-variant": "#353534",
+          "outline": "#aa8984",
+          "on-surface-variant": "#e3beb8",
+          "on-secondary-fixed-variant": "#474747",
+          "surface-container-highest": "#353534",
+          "on-primary": "#690000",
+          "primary": "#ffb4a8",
+          "tertiary-fixed-dim": "#ffb4a8",
+          "tertiary-container": "#811a10",
+          "on-primary-fixed-variant": "#920703",
+          "on-tertiary-fixed": "#410000",
+          "on-secondary-fixed": "#1b1c1c",
+          "outline-variant": "#5a403c",
+          "secondary": "#c8c6c5",
+          "primary-container": "#8b0000",
+          "inverse-primary": "#b52619",
+          "on-secondary": "#303030",
+          "primary-fixed-dim": "#ffb4a8",
+          "on-tertiary-fixed-variant": "#881f14",
+          "secondary-fixed-dim": "#c8c6c5",
+          "on-error-container": "#ffdad6"
+        },
+        fontFamily: {
+          "headline": ["Epilogue"],
+          "body": ["Manrope"],
+          "label": ["Space Grotesk"]
+        },
+        borderRadius: { "DEFAULT": "0rem", "lg": "0rem", "xl": "0rem", "full": "9999px" },
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  }
+  .crow-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c-5 0-10 10-10 15 0 5 10 25 10 25s10-20 10-25c0-5-5-15-10-15z' fill='%238b0000' fill-opacity='0.03'/%3E%3C/svg%3E");
+  }
+  .text-glow { text-shadow: 0 0 15px rgba(139, 0, 0, 0.4); }
+  .sharingan-radial {
+    background-image: radial-gradient(circle at center, rgba(139, 0, 0, 0.08) 0%, transparent 70%);
+  }
+  .tomoe-svg { fill: #8b0000; opacity: 0.1; filter: blur(1px); }
+  @keyframes rotate-slow {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .animate-rotate-slow { animation: rotate-slow 60s linear infinite; }
+
+  /* Mobile menu */
+  #mobile-menu { display: none; }
+  #mobile-menu.open { display: flex; }
+
+  /* Smooth scroll */
+  html { scroll-behavior: smooth; }
+
+  /* Active nav link */
+  .nav-link.active { color: #ffb4a8 !important; border-bottom: 2px solid #8b0000; padding-bottom: 4px; }
+
+  /* Hover lift for cards */
+  .work-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .work-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(139,0,0,0.25); }
+
+  /* CTA button pulse */
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(139,0,0,0.4); }
+    50% { box-shadow: 0 0 0 12px rgba(139,0,0,0); }
+  }
+  .btn-pulse { animation: pulse-red 2.5s infinite; }
+
+  /* Mobile responsive tweaks */
+  @media (max-width: 768px) {
+    .hero-headline { font-size: 3.5rem !important; line-height: 1 !important; }
+    .philosophy-heading { font-size: 2.5rem !important; }
+    .cta-heading { font-size: 2.8rem !important; }
+  }
+</style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+
+<!-- ═══════════════════════════════════════════════ TOP NAV ═══ -->
+<nav class="bg-zinc-950/60 backdrop-blur-xl top-0 sticky z-50 shadow-[0_0_20px_rgba(139,0,0,0.15)] bg-gradient-to-b from-red-900/10 to-transparent">
+  <div class="flex justify-between items-center w-full px-6 md:px-8 py-4 max-w-[1920px] mx-auto">
+
+    <!-- LOGO — Replace "ITACHI" with your brand/logo name -->
+    <a href="#hero" class="text-2xl font-black tracking-tighter text-red-800 dark:text-red-700 italic font-headline hover:text-red-600 transition-colors">
+      <!-- ⬇️ REPLACE: Your name or brand -->
+      ITACHI
+    </a>
+
+    <!-- Desktop Nav -->
+    <div class="hidden md:flex items-center gap-10">
+      <a href="#work"      class="nav-link text-zinc-400 hover:text-zinc-100 transition-colors font-label uppercase text-sm tracking-widest">Work</a>
+      <a href="#philosophy" class="nav-link text-zinc-400 hover:text-zinc-100 transition-colors font-label uppercase text-sm tracking-widest">Process</a>
+      <a href="#about"     class="nav-link text-zinc-400 hover:text-zinc-100 transition-colors font-label uppercase text-sm tracking-widest">About</a>
+      <a href="#contact"   class="nav-link text-zinc-400 hover:text-zinc-100 transition-colors font-label uppercase text-sm tracking-widest">Contact</a>
+    </div>
+
+    <!-- CTA + Hamburger -->
+    <div class="flex items-center gap-4">
+      <!-- ⬇️ REPLACE: href with your booking/contact link -->
+      <a href="#contact" class="hidden sm:block bg-primary-container text-white px-5 py-2 font-label uppercase text-xs tracking-[0.2em] font-bold hover:bg-red-700 active:scale-95 transition-all duration-300">
+        Request an Audience
+      </a>
+      <!-- Hamburger (mobile) -->
+      <button id="hamburger" aria-label="Open menu" class="md:hidden flex flex-col gap-1.5 p-2 group">
+        <span class="w-6 h-0.5 bg-zinc-300 group-hover:bg-red-500 transition-colors"></span>
+        <span class="w-4 h-0.5 bg-zinc-300 group-hover:bg-red-500 transition-colors"></span>
+        <span class="w-6 h-0.5 bg-zinc-300 group-hover:bg-red-500 transition-colors"></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Drawer -->
+  <div id="mobile-menu" class="flex-col md:hidden bg-zinc-950/95 backdrop-blur-xl border-t border-zinc-800/40 px-6 py-6 gap-5">
+    <a href="#work"       onclick="closeMobile()" class="font-label uppercase text-sm tracking-widest text-zinc-300 hover:text-red-400 transition-colors">Work</a>
+    <a href="#philosophy" onclick="closeMobile()" class="font-label uppercase text-sm tracking-widest text-zinc-300 hover:text-red-400 transition-colors">Process</a>
+    <a href="#about"      onclick="closeMobile()" class="font-label uppercase text-sm tracking-widest text-zinc-300 hover:text-red-400 transition-colors">About</a>
+    <a href="#contact"    onclick="closeMobile()" class="font-label uppercase text-sm tracking-widest text-zinc-300 hover:text-red-400 transition-colors">Contact</a>
+    <!-- ⬇️ REPLACE: href with your contact/booking link -->
+    <a href="#contact" onclick="closeMobile()" class="mt-2 inline-block bg-primary-container text-white px-6 py-3 font-label uppercase text-xs tracking-[0.2em] font-bold text-center hover:bg-red-700 transition-all duration-300">
+      Request an Audience
+    </a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════════ HERO ═══ -->
+<header id="hero" class="relative min-h-screen flex items-center overflow-hidden bg-surface-container-lowest">
+  <div class="absolute inset-0 crow-pattern opacity-40"></div>
+  <div class="absolute -left-20 top-1/4 w-[600px] h-[600px] sharingan-radial animate-rotate-slow pointer-events-none">
+    <svg class="w-full h-full opacity-20" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" fill="none" r="45" stroke="#8b0000" stroke-dasharray="2 4" stroke-width="0.1"/>
+      <circle cx="50" cy="50" fill="none" r="30" stroke="#8b0000" stroke-width="0.2"/>
+      <g transform="translate(50, 20)"><path class="tomoe-svg" d="M0,0 c-5,0 -8,5 -8,10 c0,5 3,8 8,8 c5,0 8-3 8-8 c0,-5 -3-10 -8-10 z M0,4 c2,0 4,2 4,6 s-2,6 -4,6 s-4-2 -4-6 s2-6 4-6z" transform="rotate(-30)"/></g>
+      <g transform="rotate(120, 50, 50) translate(50, 20)"><path class="tomoe-svg" d="M0,0 c-5,0 -8,5 -8,10 c0,5 3,8 8,8 c5,0 8-3 8-8 c0,-5 -3-10 -8-10 z M0,4 c2,0 4,2 4,6 s-2,6 -4,6 s-4-2 -4-6 s2-6 4-6z" transform="rotate(-30)"/></g>
+      <g transform="rotate(240, 50, 50) translate(50, 20)"><path class="tomoe-svg" d="M0,0 c-5,0 -8,5 -8,10 c0,5 3,8 8,8 c5,0 8-3 8-8 c0,-5 -3-10 -8-10 z M0,4 c2,0 4,2 4,6 s-2,6 -4,6 s-4-2 -4-6 s2-6 4-6z" transform="rotate(-30)"/></g>
+    </svg>
+  </div>
+  <div class="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10"></div>
+
+  <!-- Hero BG image -->
+  <div class="absolute top-0 right-0 w-full h-full lg:w-2/3 z-0 opacity-40 lg:opacity-60">
+    <img
+      alt="Dark atmospheric digital art of a cloaked figure in shadows"
+      class="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-all duration-1000"
+      src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_9PQ-5sgZX8RLjuljvFLAZTXkHmcPnkklA4EkXxCLkWzGVZ-_1CeJsiBfR2ysWB24o-SNEUpI5hGNxiHJMYS8ligXfSK0cPBEdokRz7JtTW-4NvAuIrouD-_HGM4wyJKNCuDtb0eI9aTidABC87g_twMWLlZy6_xoXXSiB1zPSEHvUNozZT12iqEoEOebi0lTygrGNFxLJVwm0gQ0AN4dD2kw8KDgJl4bXTs1Wkn3l7zVL_-uasapAwXB50tr33XLBWEerCF-I9I"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+  </div>
+
+  <div class="container mx-auto px-6 md:px-8 relative z-20 pt-16 pb-32 md:py-0">
+    <div class="max-w-4xl">
+      <div class="mb-6 flex items-center gap-4">
+        <span class="w-12 h-[1px] bg-primary-container"></span>
+        <!-- ⬇️ REPLACE: Your tagline / specialty -->
+        <span class="font-label text-primary-container uppercase tracking-[0.4em] text-xs md:text-sm">Visionary Web Design</span>
+      </div>
+
+      <!-- ⬇️ REPLACE: Your hero headline -->
+      <h1 class="hero-headline font-headline font-black tracking-tighter leading-none text-glow mb-6 md:mb-8" style="font-size:clamp(3rem,10vw,8rem)">
+        STAGING <br/> <span class="text-primary-container">ILLUSION</span>
+      </h1>
+
+      <!-- ⬇️ REPLACE: Your hero description -->
+      <p class="font-body text-base md:text-xl lg:text-2xl text-on-surface-variant max-w-xl mb-10 md:mb-12 leading-relaxed">
+        Crafting digital experiences that bridge the gap between reality and the sublime. We don't just build sites; we cast perceptions.
+      </p>
+
+      <div class="flex flex-wrap gap-4 md:gap-6">
+        <a href="#work" class="btn-pulse px-8 md:px-10 py-4 md:py-5 bg-primary-container text-on-background font-label uppercase font-bold tracking-widest text-sm shadow-[0_0_30px_rgba(139,0,0,0.3)] hover:scale-105 transition-transform duration-300">
+          View Portfolio
+        </a>
+        <a href="#philosophy" class="px-8 md:px-10 py-4 md:py-5 border border-outline-variant text-on-surface font-label uppercase font-bold tracking-widest text-sm hover:bg-surface-container-high transition-colors">
+          The Method
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Glass Project Cards (desktop only) -->
+  <div class="hidden xl:flex absolute bottom-20 right-20 flex-col gap-6 z-30">
+    <!-- ⬇️ REPLACE: Featured project name & description -->
+    <div class="work-card p-6 bg-surface-variant/40 backdrop-blur-2xl border border-outline-variant/20 w-80 shadow-2xl relative overflow-hidden cursor-pointer" onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})">
+      <div class="absolute -right-4 -bottom-4 w-24 h-24 sharingan-radial opacity-40"></div>
+      <div class="flex justify-between items-start mb-4">
+        <span class="font-label text-[10px] uppercase tracking-widest text-primary-container">Featured project</span>
+        <span class="material-symbols-outlined text-sm text-primary-container">auto_awesome</span>
+      </div>
+      <!-- ⬇️ REPLACE: Project 1 name -->
+      <h3 class="font-headline text-xl font-bold mb-2">Tsukuyomi App</h3>
+      <!-- ⬇️ REPLACE: Project 1 short description -->
+      <p class="text-sm font-body text-zinc-400 mb-4">Immersive 3D e-commerce for high-end fashion.</p>
+      <div class="h-1 bg-outline-variant"><div class="h-full bg-primary-container w-2/3"></div></div>
+    </div>
+
+    <!-- ⬇️ REPLACE: Second project name & description -->
+    <div class="work-card p-6 bg-surface-variant/40 backdrop-blur-2xl border border-outline-variant/20 w-80 shadow-2xl translate-x-[-40px] relative overflow-hidden cursor-pointer" onclick="document.getElementById('work').scrollIntoView({behavior:'smooth'})">
+      <div class="absolute -right-4 -top-4 w-20 h-20 sharingan-radial opacity-30"></div>
+      <div class="flex justify-between items-start mb-4">
+        <span class="font-label text-[10px] uppercase tracking-widest text-primary-container">Recent release</span>
+        <span class="material-symbols-outlined text-sm text-primary-container">token</span>
+      </div>
+      <!-- ⬇️ REPLACE: Project 2 name -->
+      <h3 class="font-headline text-xl font-bold mb-2">Shadow Protocol</h3>
+      <!-- ⬇️ REPLACE: Project 2 short description -->
+      <p class="text-sm font-body text-zinc-400 mb-4">Cryptographic dashboard for web3 entities.</p>
+      <div class="h-1 bg-outline-variant"><div class="h-full bg-primary-container w-full"></div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════ SELECTED WORKS ═══ -->
+<section id="work" class="py-20 md:py-32 bg-surface relative">
+  <div class="absolute left-0 bottom-0 w-96 h-96 sharingan-radial opacity-20 pointer-events-none"></div>
+  <div class="container mx-auto px-6 md:px-8 relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-20 gap-4">
+      <div>
+        <h2 class="font-headline text-4xl md:text-6xl font-black tracking-tighter mb-4">SELECTED WORKS</h2>
+        <p class="font-label text-primary-container uppercase tracking-widest text-sm">Chronicles of Visual Excellence</p>
+      </div>
+      <div>
+        <!-- ⬇️ REPLACE: href with your full portfolio/archive URL -->
+        <a href="#" class="font-label uppercase tracking-widest text-sm flex items-center gap-2 hover:text-primary-container transition-colors">
+          Browse Full Archive <span class="material-symbols-outlined">arrow_right_alt</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Bento Grid — stacks on mobile -->
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
+
+      <!-- Card 1 — large -->
+      <!-- ⬇️ REPLACE: href with your project 1 case study URL -->
+      <a href="#" class="work-card md:col-span-8 bg-surface-container-low group relative overflow-hidden block h-64 md:h-[450px]">
+        <img alt="Modern minimal web layout mockup" class="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3iYIgnK9abOFn-ZtaHLLObb1oXlSSOD_PyCd0_wAlXZDKakrRN404-74MoJg0aZEQHXxvwbPqMwvgIPkedw882toSrcG2KDWCoWf8Hix3D2qZVYW95vH_x8vF9N98FDeKxv_EKJNGVZBVFjRVfZFL1rPWUG_quhu5f5fy1twgAMsQqDZqCAegGQZtXtYtUpx7Fp4ZRsciAi9k2BXOl7o69JO8xcHEQvojcUUpHpkvNAPNOuBt5yWYjRROoZr6Q7-F4O9EiblQEEE"/>
+        <div class="absolute inset-0 p-8 md:p-12 flex flex-col justify-end bg-gradient-to-t from-background to-transparent opacity-90">
+          <!-- ⬇️ REPLACE: Category & name -->
+          <span class="font-label text-primary-container text-xs uppercase tracking-[0.3em] mb-3">Brand Identity / Web</span>
+          <h4 class="font-headline text-2xl md:text-4xl font-bold tracking-tight">Kotoamatsukami Identity</h4>
+          <span class="mt-3 text-xs font-label text-zinc-500 uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            View Case Study <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <!-- ⬇️ REPLACE: href with your project 2 URL -->
+      <a href="#" class="work-card md:col-span-4 bg-surface-container-high group relative overflow-hidden block h-52 md:h-[450px]">
+        <img alt="Abstract dark glass shapes" class="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjGvopmSIQRoiBRCwXVwoKnQFGjd09Kh5KVTE769JeIj6KFZbURhOmmS24YqAd9pYh0yKjUd5STozkPYyp7Re8ELFBxMLTwieQC9bBpEG3CgxJbJd46BRs5V4lLWjqRbNFK0N1APdyA2eZ8edlhALUWNSO8uCYgnfK8KGJg9bmeLiGabYoHKJCRTStAXjkKG3Q2qIJPJrijs2RbZKJnZU-BW7ZGZ-nI0Ihj1Y_tiwkvSuKSgs60IV4h5xOKGpAQL5mkSNiTL-Qg7w"/>
+        <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end bg-gradient-to-t from-background to-transparent opacity-90">
+          <!-- ⬇️ REPLACE: Category & name -->
+          <span class="font-label text-primary-container text-xs uppercase tracking-[0.3em] mb-3">3D Direction</span>
+          <h4 class="font-headline text-xl md:text-2xl font-bold tracking-tight">Void Particles</h4>
+          <span class="mt-2 text-xs font-label text-zinc-500 uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            View <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card 3 -->
+      <!-- ⬇️ REPLACE: href with your project 3 URL -->
+      <a href="#" class="work-card md:col-span-4 bg-surface-container-high group relative overflow-hidden block h-52 md:h-[450px]">
+        <img alt="Abstract tech background" class="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuAuQssW3bzUgXaTvTgOtXllwtqCtbVdxgp2jGVqv3yeQ3ljozaAuJ259mTUEa7msOoytheOuOTVNj4qgl9X4pb-YM3JEeVAFpSWDgIUSaqd89Xnhz47_u08WqMA1a0FmnPEQD27hfLfBP-utDcYJHyxVEk-5T6LN318YIGggbryu4oSsFtOW7hdS58BodVNoKt-QjNSxJjV6qxXQVV3HwL5NrOkX3uXvFtJNy8-Qs95jpbp94UW4hWQgBy1gH_3h3BAXd3na9G94fY"/>
+        <div class="absolute inset-0 p-6 md:p-8 flex flex-col justify-end bg-gradient-to-t from-background to-transparent opacity-90">
+          <!-- ⬇️ REPLACE: Category & name -->
+          <span class="font-label text-primary-container text-xs uppercase tracking-[0.3em] mb-3">Interactive</span>
+          <h4 class="font-headline text-xl md:text-2xl font-bold tracking-tight">Totsuka Blade Engine</h4>
+          <span class="mt-2 text-xs font-label text-zinc-500 uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            View <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+          </span>
+        </div>
+      </a>
+
+      <!-- Card 4 — large -->
+      <!-- ⬇️ REPLACE: href with your project 4 URL -->
+      <a href="#" class="work-card md:col-span-8 bg-surface-container-low group relative overflow-hidden block h-64 md:h-[450px]">
+        <img alt="Modern tech workstation" class="w-full h-full object-cover grayscale brightness-50 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuBIQupyyLzjUH5EhDdnMQX6GeEJfwEFYDFcYEEkLz01HGLKPkJnjzZPlzcC29A0AqMDR_a8NHlaUGFGIN1xvFh1zZxJlvZU1mZFhmofjgBIOlzlaWL8mYHkYCU02Y6d0WbmoYQAGFJnpcpUnBo5m2vrN80mbBKbCdY8RRRzNqFzw0vdn8a1-flVzq8nz9ccvwBEsBbi4vM6J9RG5CNqC1MKwtmgVilbMJ471glXX1FGfi6onJo9TvOKRdKnW5OmmEiF1qWtZPy0f2I"/>
+        <div class="absolute inset-0 p-8 md:p-12 flex flex-col justify-end bg-gradient-to-t from-background to-transparent opacity-90">
+          <!-- ⬇️ REPLACE: Category & name -->
+          <span class="font-label text-primary-container text-xs uppercase tracking-[0.3em] mb-3">Case Study</span>
+          <h4 class="font-headline text-2xl md:text-4xl font-bold tracking-tight">The Susano'o Framework</h4>
+          <span class="mt-3 text-xs font-label text-zinc-500 uppercase tracking-widest flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+            View Case Study <span class="material-symbols-outlined text-sm">arrow_right_alt</span>
+          </span>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ PHILOSOPHY ═══ -->
+<section id="philosophy" class="py-24 md:py-40 bg-surface-container-lowest relative overflow-hidden">
+  <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full max-w-[800px] max-h-[800px] opacity-[0.03] pointer-events-none animate-rotate-slow">
+    <svg class="w-full h-full text-primary-container fill-current" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" fill="none" r="48" stroke="currentColor" stroke-width="0.5"/>
+      <circle cx="50" cy="50" fill="none" r="35" stroke="currentColor" stroke-dasharray="1 2" stroke-width="0.3"/>
+      <g transform="translate(50, 15)"><path d="M0,0 c-10,0 -15,10 -15,20 c0,10 5,15 15,15 c10,0 15-5 15-15 c0,-10 -5-20 -15-20 z" transform="rotate(-45)"/></g>
+      <g transform="rotate(120, 50, 50) translate(50, 15)"><path d="M0,0 c-10,0 -15,10 -15,20 c0,10 5,15 15,15 c10,0 15-5 15-15 c0,-10 -5-20 -15-20 z" transform="rotate(-45)"/></g>
+      <g transform="rotate(240, 50, 50) translate(50, 15)"><path d="M0,0 c-10,0 -15,10 -15,20 c0,10 5,15 15,15 c10,0 15-5 15-15 c0,-10 -5-20 -15-20 z" transform="rotate(-45)"/></g>
+    </svg>
+  </div>
+  <div class="container mx-auto px-6 md:px-8 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="font-label text-primary-container uppercase tracking-[0.5em] text-xs md:text-sm mb-6 md:mb-8 block">Design with Vision</span>
+      <!-- ⬇️ REPLACE: Your philosophy headline -->
+      <h2 class="philosophy-heading font-headline font-black tracking-tighter mb-10 md:mb-12" style="font-size:clamp(2rem,6vw,5rem)">
+        THOSE WHO DO NOT UNDERSTAND TRUE <span class="italic text-primary-container">DESIGN</span> WILL NEVER KNOW PEACE.
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 text-left">
+        <!-- ⬇️ REPLACE: Your philosophy paragraph 1 -->
+        <p class="font-body text-base md:text-lg text-on-surface-variant leading-relaxed">
+          Web design is the ultimate genjutsu. It is the art of controlling the user's perception through rhythm, flow, and visual hierarchy. We analyze the user's journey with the precision of a master tactician, ensuring every pixel serves a tactical purpose.
+        </p>
+        <!-- ⬇️ REPLACE: Your philosophy paragraph 2 -->
+        <p class="font-body text-base md:text-lg text-on-surface-variant leading-relaxed">
+          True mastery is not in the abundance of features, but in the restraint of the creator. We strip away the unnecessary noise to reveal the core essence of your brand—pure, powerful, and undeniable.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ ABOUT ═══ -->
+<section id="about" class="py-24 md:py-32 bg-surface border-t border-outline-variant/10 relative overflow-hidden">
+  <div class="absolute right-0 top-0 w-96 h-96 sharingan-radial opacity-15 pointer-events-none"></div>
+  <div class="container mx-auto px-6 md:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24 items-center">
+      <div>
+        <span class="font-label text-primary-container uppercase tracking-[0.5em] text-xs md:text-sm mb-6 block">The Architect</span>
+        <!-- ⬇️ REPLACE: Your full name -->
+        <h2 class="font-headline text-4xl md:text-6xl font-black tracking-tighter mb-8">ITACHI<br/><span class="text-primary-container text-2xl md:text-4xl">UCHIHA</span></h2>
+        <!-- ⬇️ REPLACE: Your bio / about text -->
+        <p class="font-body text-base md:text-lg text-on-surface-variant leading-relaxed mb-6">
+          A digital strategist and visual architect with over a decade of forging unforgettable web experiences. Based in the shadows, operating globally.
+        </p>
+        <!-- ⬇️ REPLACE: Your second bio paragraph -->
+        <p class="font-body text-base md:text-lg text-on-surface-variant leading-relaxed mb-10">
+          Specializing in brand identity, immersive 3D web, and conversion-driven design for founders who refuse to be ordinary.
+        </p>
+        <!-- Stats row — ⬇️ REPLACE numbers with your real stats -->
+        <div class="grid grid-cols-3 gap-6 border-t border-outline-variant/20 pt-8">
+          <div>
+            <div class="font-headline text-3xl md:text-4xl font-black text-primary-container mb-1">40+</div>
+            <div class="font-label text-xs uppercase tracking-widest text-zinc-500">Projects</div>
+          </div>
+          <div>
+            <div class="font-headline text-3xl md:text-4xl font-black text-primary-container mb-1">8+</div>
+            <div class="font-label text-xs uppercase tracking-widest text-zinc-500">Years</div>
+          </div>
+          <div>
+            <div class="font-headline text-3xl md:text-4xl font-black text-primary-container mb-1">100%</div>
+            <div class="font-label text-xs uppercase tracking-widest text-zinc-500">Shadowy</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Skills / Services list -->
+      <div class="space-y-4">
+        <p class="font-label text-xs uppercase tracking-widest text-zinc-600 mb-6">Disciplines</p>
+        <!-- ⬇️ REPLACE: Your actual services/skills -->
+        <div class="flex items-center gap-4 p-5 bg-surface-container-low border border-outline-variant/10 hover:border-primary-container/30 transition-colors group">
+          <span class="material-symbols-outlined text-primary-container">web</span>
+          <span class="font-label text-sm tracking-widest uppercase group-hover:text-primary-container transition-colors">Web Design & Development</span>
+        </div>
+        <div class="flex items-center gap-4 p-5 bg-surface-container-low border border-outline-variant/10 hover:border-primary-container/30 transition-colors group">
+          <span class="material-symbols-outlined text-primary-container">view_in_ar</span>
+          <span class="font-label text-sm tracking-widest uppercase group-hover:text-primary-container transition-colors">3D & Immersive Experiences</span>
+        </div>
+        <div class="flex items-center gap-4 p-5 bg-surface-container-low border border-outline-variant/10 hover:border-primary-container/30 transition-colors group">
+          <span class="material-symbols-outlined text-primary-container">palette</span>
+          <span class="font-label text-sm tracking-widest uppercase group-hover:text-primary-container transition-colors">Brand Identity & Strategy</span>
+        </div>
+        <div class="flex items-center gap-4 p-5 bg-surface-container-low border border-outline-variant/10 hover:border-primary-container/30 transition-colors group">
+          <span class="material-symbols-outlined text-primary-container">motion_photos_on</span>
+          <span class="font-label text-sm tracking-widest uppercase group-hover:text-primary-container transition-colors">Motion & Interaction Design</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ CONTACT / CTA ═══ -->
+<section id="contact" class="py-20 md:py-32 bg-background border-t border-outline-variant/10 relative overflow-hidden">
+  <div class="absolute right-0 top-1/2 -translate-y-1/2 w-64 h-64 sharingan-radial opacity-30 pointer-events-none"></div>
+  <div class="absolute left-1/4 bottom-0 w-48 h-48 sharingan-radial opacity-20 pointer-events-none"></div>
+  <div class="container mx-auto px-6 md:px-8 relative z-10">
+    <div class="bg-primary-container p-10 md:p-16 lg:p-24 relative overflow-hidden group">
+      <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1543326727-cf6c39e8f84c?q=80&w=2070&auto=format&fit=crop')] bg-cover bg-center mix-blend-overlay opacity-20 transition-all duration-700 group-hover:scale-110"></div>
+      <div class="relative z-10 flex flex-col items-center text-center">
+        <!-- ⬇️ REPLACE: CTA headline -->
+        <h2 class="cta-heading font-headline font-black tracking-tighter mb-6 md:mb-8" style="font-size:clamp(2.2rem,8vw,6rem)">
+          STEP INTO THE <br/> GENJUTSU
+        </h2>
+        <!-- ⬇️ REPLACE: CTA subtext -->
+        <p class="font-body text-base md:text-xl lg:text-2xl text-on-primary-container max-w-2xl mb-10 md:mb-12">
+          Are you ready to transcend the ordinary? Let's build a digital presence that haunts the mind of your competition.
+        </p>
+
+        <!-- Contact options row -->
+        <div class="flex flex-col sm:flex-row gap-4 items-center">
+          <!-- ⬇️ REPLACE: href with your email mailto: or contact form URL -->
+          <a href="mailto:itachi@yourdomain.com" class="bg-on-primary-container text-primary-container px-10 py-5 font-label uppercase font-bold tracking-[0.3em] text-sm hover:bg-white hover:scale-105 transition-all duration-300 w-full sm:w-auto text-center">
+            Initiate Ritual
+          </a>
+          <!-- ⬇️ REPLACE: href with your Calendly or booking link -->
+          <a href="#" class="border border-on-primary-container/40 text-on-primary-container px-10 py-5 font-label uppercase font-bold tracking-[0.3em] text-sm hover:bg-on-primary-container/10 transition-all duration-300 w-full sm:w-auto text-center">
+            Book a Call
+          </a>
+        </div>
+
+        <!-- Direct contact info -->
+        <div class="mt-10 flex flex-col sm:flex-row gap-6 text-on-primary-container/60">
+          <!-- ⬇️ REPLACE: Your email address -->
+          <a href="mailto:itachi@yourdomain.com" class="font-label text-xs tracking-widest uppercase hover:text-on-primary-container transition-colors flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">mail</span> itachi@yourdomain.com
+          </a>
+          <!-- ⬇️ REPLACE: Your location -->
+          <span class="font-label text-xs tracking-widest uppercase flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">location_on</span> Available Worldwide
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ FOOTER ═══ -->
+<footer class="bg-zinc-950 border-t border-zinc-800/20 relative overflow-hidden">
+  <div class="absolute right-0 bottom-0 w-80 h-80 sharingan-radial opacity-10 pointer-events-none"></div>
+  <div class="flex flex-col md:flex-row justify-between items-center w-full px-8 md:px-12 py-12 md:py-16 gap-8 max-w-[1920px] mx-auto relative z-10">
+
+    <div class="flex flex-col items-center md:items-start gap-3">
+      <!-- ⬇️ REPLACE: Your brand name -->
+      <a href="#hero" class="text-lg font-black text-red-800 font-headline hover:text-red-600 transition-colors">ITACHI</a>
+      <!-- ⬇️ REPLACE: Your footer tagline -->
+      <p class="font-body text-sm text-zinc-500 max-w-xs text-center md:text-left">Forged in the Shadows. Built for the Light.</p>
+    </div>
+
+    <!-- Social Links -->
+    <div class="flex flex-wrap justify-center gap-10 md:gap-12">
+      <div class="flex flex-col gap-3">
+        <span class="font-label tracking-widest text-[10px] uppercase text-zinc-600">Network</span>
+        <!-- ⬇️ REPLACE: Your LinkedIn URL -->
+        <a href="https://linkedin.com/in/YOURUSERNAME" target="_blank" rel="noopener" class="text-zinc-500 hover:text-red-500 transition-colors font-body text-sm hover:-translate-y-0.5 transition-transform flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">link</span> LinkedIn
+        </a>
+        <!-- ⬇️ REPLACE: Your Dribbble URL -->
+        <a href="https://dribbble.com/YOURUSERNAME" target="_blank" rel="noopener" class="text-zinc-500 hover:text-red-500 transition-colors font-body text-sm hover:-translate-y-0.5 transition-transform flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">sports_basketball</span> Dribbble
+        </a>
+      </div>
+      <div class="flex flex-col gap-3">
+        <span class="font-label tracking-widest text-[10px] uppercase text-zinc-600">Connect</span>
+        <!-- ⬇️ REPLACE: Your Read.cv or portfolio link -->
+        <a href="https://read.cv/YOURUSERNAME" target="_blank" rel="noopener" class="text-zinc-500 hover:text-red-500 transition-colors font-body text-sm hover:-translate-y-0.5 transition-transform flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">description</span> Read.cv
+        </a>
+        <!-- ⬇️ REPLACE: Your email -->
+        <a href="mailto:itachi@yourdomain.com" class="text-zinc-500 hover:text-red-500 transition-colors font-body text-sm hover:-translate-y-0.5 transition-transform flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">mail</span> Email
+        </a>
+      </div>
+      <div class="flex flex-col gap-3">
+        <span class="font-label tracking-widest text-[10px] uppercase text-zinc-600">Also On</span>
+        <!-- ⬇️ REPLACE: Your Twitter/X handle -->
+        <a href="https://twitter.com/YOURUSERNAME" target="_blank" rel="noopener" class="text-zinc-500 hover:text-red-500 transition-colors font-body text-sm hover:-translate-y-0.5 transition-transform flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">alternate_email</span> Twitter / X
+        </a>
+        <!-- ⬇️ REPLACE: Your Instagram or Behance URL -->
+        <a href="https://instagram.com/YOURUSERNAME" target="_blank" rel="noopener" class="text-zinc-500 hover:text-red-500 transition-colors font-body text-sm hover:-translate-y-0.5 transition-transform flex items-center gap-1.5">
+          <span class="material-symbols-outlined text-sm">photo_camera</span> Instagram
+        </a>
+      </div>
+    </div>
+
+    <!-- ⬇️ REPLACE: Year and your brand name -->
+    <div class="text-zinc-600 font-label tracking-widest text-xs text-center">
+      © 2025 ITACHI — Forged in the Shadows
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── Mobile menu toggle
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobile-menu');
+  hamburger.addEventListener('click', () => {
+    mobileMenu.classList.toggle('open');
+  });
+  function closeMobile() {
+    mobileMenu.classList.remove('open');
+  }
+
+  // ── Active nav highlighting on scroll
+  const sections = ['hero', 'work', 'philosophy', 'about', 'contact'];
+  const navLinks = document.querySelectorAll('.nav-link');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+</script>
+</body>
+</html>
